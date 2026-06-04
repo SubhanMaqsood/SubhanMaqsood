@@ -66,11 +66,11 @@
 <img src="https://img.shields.io/badge/GitHub-000?style=for-the-badge&logo=github&logoColor=white"/>
 </a>
 
-<a href="#">
+<a href="https://www.linkedin.com/in/muhammad-subhan-maqsood/">
 <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
 
-<a href="#">
+<a href="https://www.instagram.com/sbhnmqd?igsh=dXU0cmZ5andoeWJm&utm_source=qr">
 <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/>
 </a>
 
