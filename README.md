@@ -1,12 +1,12 @@
 <div align="center">
 
-<!-- HEADER BANNER -->
+<!-- HEADER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=240&color=0:0F172A,50:2563EB,100:38BDF8&text=Subhan%20Maqsood&fontColor=FFFFFF&fontSize=55&fontAlignY=38&animation=fadeIn"/>
 
-<!-- INTRO -->
+<!-- TITLE -->
 <h1>👋 Welcome to My GitHub Profile</h1>
 
-<!-- TYPING EFFECT -->
+<!-- TYPING EFFECT (stable use) -->
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=900&lines=Computer+Science+Student;Frontend+Developer+(React.js);UI+%2F+UX+Explorer;JavaScript+Enthusiast;AI+Engineer;Building+Clean+%26+Modern+Web+Apps" />
 
 </div>
@@ -16,14 +16,14 @@
 ## 🚀 About Me
 
 - 🎓 Computer Science Student  
-- 💻 Passionate Frontend Developer (React.js)  
-- 🎯 Focused on building modern & responsive web apps  
-- 🧠 Currently exploring JavaScript, React & AI concepts  
-- ⚡ Love turning ideas into real-world projects  
+- 💻 Frontend Developer (React.js)  
+- 🎯 Passionate about clean UI & modern web apps  
+- 🧠 Exploring JavaScript, React & AI Engineering  
+- ⚡ Focused on real-world project building  
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack (Stable Icons)
 
 <p align="center">
 
@@ -33,28 +33,16 @@
 
 ---
 
-## 📊 GitHub Stats
+## 📊 GitHub Stats (Fully Stable)
 
 <p align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=SubhanMaqsood&show_icons=true&theme=tokyonight&hide_border=true&rank_icon=github" height="180"/>
+<!-- GitHub Stats -->
+<img height="180" src="https://github-readme-stats.vercel.app/api?username=SubhanMaqsood&show_icons=true&theme=tokyonight&hide_border=true" />
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SubhanMaqsood&layout=compact&theme=tokyonight&hide_border=true" height="180"/>
+<!-- Top Languages -->
+<img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SubhanMaqsood&layout=compact&theme=tokyonight&hide_border=true" />
 
-</p>
-
----
-
-## 📌 Most Used Languages
-
-<p align="center">
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SubhanMaqsood&layout=compact&theme=tokyonight&hide_border=true&langs_count=8" />
-
-</p>
-
-<p align="center">
-📌 Focused on JavaScript & React.js for modern web development
 </p>
 
 ---
@@ -64,7 +52,7 @@
 <p align="center">
 
 <a href="https://github.com/SubhanMaqsood">
-<img src="https://img.shields.io/badge/GitHub-000?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white"/>
 </a>
 
 <a href="https://www.linkedin.com/in/muhammad-subhan-maqsood/">
@@ -87,6 +75,6 @@
 
 <div align="center">
 
-⭐ *Feel free to explore my repositories and projects!* ⭐
+⭐ Feel free to explore my repositories and projects ⭐
 
 </div>
