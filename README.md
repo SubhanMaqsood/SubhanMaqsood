@@ -1,13 +1,22 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0F172A,50:2563EB,100:38BDF8&text=Subhan%20Maqsood&fontColor=FFFFFF&fontSize=50&fontAlignY=35&animation=fadeIn"/>
+<!-- HEADER BANNER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=240&color=0:0F172A,50:2563EB,100:38BDF8&text=Subhan%20Maqsood&fontColor=FFFFFF&fontSize=55&fontAlignY=38&animation=fadeIn"/>
 
+<!-- INTRO TITLE -->
 <h1>👋 Welcome to My GitHub Profile</h1>
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=1000&color=38BDF8&center=true&vCenter=true&width=800&lines=Computer+Science+Student;Frontend+Developer;React.js+Learner;Future+AI+Engineer;Building+Projects+That+Matter" alt="Typing SVG" />
+<!-- TYPING ANIMATION -->
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=850&lines=Computer+Science+Student;Frontend+Developer;React.js+Developer;UI+%2F+UX+Explorer;Future+AI+Engineer;Building+Clean+%26+Modern+Web+Apps" />
 
+<!-- PROFILE VIEWS -->
 <p>
   <img src="https://komarev.com/ghpvc/?username=SubhanMaqsood&label=Profile+Views&color=2563EB&style=for-the-badge" />
+</p>
+
+<!-- SMALL TAGLINE -->
+<p style="font-size:14px;">
+  💡 Turning ideas into clean, functional & modern web experiences
 </p>
 
 </div>
