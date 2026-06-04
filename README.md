@@ -7,7 +7,7 @@
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=1000&color=38BDF8&center=true&vCenter=true&width=800&lines=Computer+Science+Student;Frontend+Developer;React.js+Learner;Future+AI+Engineer;Building+Projects+That+Matter" alt="Typing SVG" />
 
 <p>
-  <img src="https://komarev.com/ghpvc/?username=YOUR_USERNAME&label=Profile+Views&color=2563EB&style=for-the-badge" />
+  <img src="https://komarev.com/ghpvc/?username=SubhanMaqsood&label=Profile+Views&color=2563EB&style=for-the-badge" />
 </p>
 
 </div>
