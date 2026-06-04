@@ -7,12 +7,7 @@
 <h1>👋 Welcome to My GitHub Profile</h1>
 
 <!-- TYPING EFFECT -->
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=900&lines=Computer+Science+Student;Frontend+Developer+(React.js);UI+%2F+UX+Explorer;JavaScript+Enthusiast;Future+AI+Engineer;Building+Clean+%26+Modern+Web+Apps" />
-
-<!-- PROFILE VIEWS -->
-<p>
-  <img src="https://komarev.com/ghpvc/?username=SubhanMaqsood&label=Profile+Views&color=2563EB&style=for-the-badge" />
-</p>
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=900&lines=Computer+Science+Student;Frontend+Developer+(React.js);UI+%2F+UX+Explorer;JavaScript+Enthusiast;AI+Engineer;Building+Clean+%26+Modern+Web+Apps" />
 
 </div>
 
@@ -42,7 +37,7 @@
 
 <p align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=SubhanMaqsood&show_icons=true&theme=tokyonight&hide_border=true" height="180"/>
+<img src="https://github-readme-stats.vercel.app/api?username=SubhanMaqsood&show_icons=true&theme=tokyonight&hide_border=true&rank_icon=github" height="180"/>
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=SubhanMaqsood&theme=tokyonight&hide_border=true" height="180"/>
 
 </p>
@@ -53,8 +48,12 @@
 
 <p align="center">
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SubhanMaqsood&layout=compact&theme=tokyonight&hide_border=true" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SubhanMaqsood&layout=compact&theme=tokyonight&hide_border=true&langs_count=8" />
 
+</p>
+
+<p align="center">
+📌 Focused on JavaScript & React.js for modern web development
 </p>
 
 ---
