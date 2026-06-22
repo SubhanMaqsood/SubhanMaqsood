@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Eval Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #161b27;
+      --border: #252d3d;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --green: #10b981;
+      --yellow: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+    header { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 1.25rem; font-weight: 700; }
+    header span { font-size: 0.75rem; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; }
+    .main { max-width: 1100px; margin: 0 auto; padding: 32px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+    label { font-size: 0.8rem; color: var(--muted); display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .05em; }
+    textarea, input[type=text] {
+      width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); padding: 12px; font-size: 0.9rem; resize: vertical; outline: none;
+      transition: border .2s;
+    }
+    textarea:focus, input:focus { border-color: var(--accent); }
+    .model-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .model-chip {
+      padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border);
+      cursor: pointer; font-size: 0.8rem; transition: all .2s; user-select: none;
+    }
+    .model-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .run-btn {
+      margin-top: 20px; padding: 12px 32px; background: var(--accent);
+      color: #fff; border: none; border-radius: 8px; font-size: 0.95rem;
+      font-weight: 600; cursor: pointer; transition: opacity .2s;
+    }
+    .run-btn:hover { opacity: .85; }
+    .run-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+    .result-card h3 { font-size: 0.95rem; color: var(--accent2); margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .result-card .latency { font-size: 0.75rem; color: var(--muted); }
+    .response-box { font-size: 0.82rem; color: #94a3b8; background: var(--surface); border-radius: 6px; padding: 10px; margin-bottom: 12px; line-height: 1.6; max-height: 120px; overflow-y: auto; }
+    .metric-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .metric-label { font-size: 0.78rem; color: var(--muted); }
+    .metric-bar-wrap { flex: 1; margin: 0 10px; height: 5px; background: var(--border); border-radius: 3px; }
+    .metric-bar { height: 100%; border-radius: 3px; background: var(--accent); transition: width .6s ease; }
+    .metric-val { font-size: 0.78rem; font-weight: 600; min-width: 38px; text-align: right; }
+    .chart-wrap { position: relative; height: 260px; }
+    .empty { color: var(--muted); text-align: center; padding: 48px; font-size: 0.9rem; }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .token-badge { display: inline-block; font-size: 0.7rem; background: var(--border); border-radius: 4px; padding: 2px 6px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<header>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" fill="#6366f1" opacity=".2"/><rect x="2" y="3" width="20" height="14" rx="2" stroke="#6366f1" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/><path d="M7 9l2.5 2.5L14 7" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <h1>LLM Eval Dashboard</h1>
+  <span>v1.0</span>
+</header>
+
+<div class="main">
+  <div class="card">
+    <label>Prompt</label>
+    <textarea id="prompt" rows="3" placeholder="Enter your evaluation prompt here...">Explain the difference between bagging and boosting in ensemble learning.</textarea>
+
+    <div style="margin-top:16px">
+      <label>Reference Answer (optional — enables ROUGE-L scoring)</label>
+      <textarea id="reference" rows="2" placeholder="Paste an ideal answer to compare against..."></textarea>
+    </div>
+
+    <div style="margin-top:16px">
+      <label>Models to Compare</label>
+      <div class="model-grid" id="modelGrid"></div>
+    </div>
+
+    <button class="run-btn" id="runBtn" onclick="runEval()">Run Evaluation</button>
+  </div>
+
+  <div id="results">
+    <div class="empty">Run an evaluation to see model comparisons here.</div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:8000';
+const MODELS = ['gpt-3.5-turbo', 'gpt-4o-mini', 'claude-haiku'];
+const selected = new Set(['gpt-3.5-turbo', 'gpt-4o-mini']);
+let radarChart = null;
+
+// Build model chips
+const grid = document.getElementById('modelGrid');
+MODELS.forEach(m => {
+  const chip = document.createElement('div');
+  chip.className = 'model-chip' + (selected.has(m) ? ' active' : '');
+  chip.textContent = m;
+  chip.onclick = () => {
+    if (selected.has(m)) { selected.delete(m); chip.classList.remove('active'); }
+    else { selected.add(m); chip.classList.add('active'); }
+  };
+  grid.appendChild(chip);
+});
+
+async function runEval() {
+  const prompt = document.getElementById('prompt').value.trim();
+  if (!prompt || selected.size === 0) return;
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Evaluating...';
+
+  const body = {
+    prompt,
+    reference_answer: document.getElementById('reference').value.trim() || null,
+    models: [...selected],
+  };
+
+  let results;
+  try {
+    const res = await fetch(`${API}/evaluate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    results = await res.json();
+  } catch (e) {
+    // Demo mode — generate mock data if backend not running
+    results = [...selected].map(model => ({
+      model,
+      response: `[Demo] This is a simulated response from ${model} for: "${prompt.slice(0, 60)}..."`,
+      latency_ms: Math.round(300 + Math.random() * 800),
+      token_count: Math.round(80 + Math.random() * 120),
+      metrics: {
+        lexical_diversity: +(0.6 + Math.random() * 0.35).toFixed(4),
+        readability:       +(40 + Math.random() * 50).toFixed(2),
+        coherence:         +(0.5 + Math.random() * 0.45).toFixed(4),
+        ...(body.reference_answer ? { rouge_l: +(0.1 + Math.random() * 0.5).toFixed(4) } : {}),
+      },
+    }));
+  }
+
+  renderResults(results);
+  btn.disabled = false;
+  btn.textContent = 'Run Evaluation';
+}
+
+function renderResults(results) {
+  const container = document.getElementById('results');
+  const COLORS = ['#6366f1', '#22d3ee', '#10b981', '#f59e0b'];
+  const metricKeys = Object.keys(results[0]?.metrics || {});
+  const normalize = (key, val) => key === 'readability' ? val / 100 : val;
+
+  // Cards
+  let html = `<h2 style="font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px">Results — ${results.length} models</h2>`;
+  html += '<div class="results-grid">';
+  results.forEach((r, i) => {
+    html += `<div class="result-card">
+      <h3 style="color:${COLORS[i]}">${r.model} <span class="latency">${r.latency_ms}ms · <span class="token-badge">${r.token_count} tokens</span></span></h3>
+      <div class="response-box">${r.response}</div>`;
+    metricKeys.forEach(key => {
+      const val = r.metrics[key];
+      const norm = normalize(key, val);
+      const pct = Math.round(norm * 100);
+      html += `<div class="metric-row">
+        <span class="metric-label">${key.replace(/_/g,' ')}</span>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:${pct}%;background:${COLORS[i]}"></div></div>
+        <span class="metric-val">${val}</span>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Radar chart
+  html += `<div class="card" style="margin-top:24px">
+    <label style="margin-bottom:16px">Metric Comparison (Radar)</label>
+    <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+  </div>`;
+
+  container.innerHTML = html;
+
+  // Draw radar
+  if (radarChart) radarChart.destroy();
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  radarChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: metricKeys.map(k => k.replace(/_/g,' ')),
+      datasets: results.map((r, i) => ({
+        label: r.model,
+        data: metricKeys.map(k => Math.round(normalize(k, r.metrics[k]) * 100)),
+        borderColor: COLORS[i],
+        backgroundColor: COLORS[i] + '22',
+        pointBackgroundColor: COLORS[i],
+        borderWidth: 2,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { r: { min: 0, max: 100, ticks: { color: '#64748b', stepSize: 20 }, grid: { color: '#252d3d' }, pointLabels: { color: '#e2e8f0', font: { size: 12 } } } },
+      plugins: { legend: { labels: { color: '#e2e8f0' } } },
+    },
+  });
+}
+</script>
+</body>
+</html>
